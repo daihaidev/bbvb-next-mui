@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.now
+.vercel
+
+# Env
+.env
+.env.*
+
+# qawolf
+artifacts

@@ -1,0 +1,30 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+options:
+  max-time: 10 # configure default 10 minute timeout
+
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: QA Wolf Tests
+          image: qawolf/playwright-ci:v1.0.0
+          caches:
+            - nodecustom
+            - yarn
+            - nextcache
+          script:
+            - yarn
+            - yarn env:setup
+            - yarn ci
+          artifacts:
+            - artifacts/**
+
+definitions:
+  # Support yarn caching: https://community.atlassian.com/t5/Bitbucket-questions/Is-Yarn-supported-for-bitbucket-pipelines-caching/qaq-p/650816
+  caches:
+    nodecustom: ./node_modules
+    yarn: /usr/local/share/.cache/yarn
+    nextcache: .next/cache
